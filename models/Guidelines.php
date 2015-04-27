@@ -4,23 +4,23 @@
 	use Phalcon\Mvc\Model\Validator\Uniqueness;
 	use Phalcon\Mvc\Model\Validator\InclusionIn;
 
-	class Users extends Model
+	class Guidelines extends Model
 	{
 		public function validation()
 		{
-			$this->validate(new InclusionIn(
-				array(
-					"field" => "role",
-					"domain" => array("doctor", "enfermero", "usuario")
-				)
-			));
+//			$this->validate(new InclusionIn(
+//				array(
+//					"field" => "type",
+//					"domain" => array("droid", "mechanical", "virtual")
+//				)
+//			));
 
-			$this->validate(new Uniqueness(
-				array(
-					"field" => "user",
-					"message" => "This user already exist"
-				)
-			));
+//			$this->validate(new Uniqueness(
+//				array(
+//					"field" => "user",
+//					"message" => "This user already exist"
+//				)
+//			));
 
 //			if($this->date < 0) {
 //				$this->appendMessage(new Message("The date cannot be less than zero"));

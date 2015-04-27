@@ -4,21 +4,21 @@
 	use Phalcon\Mvc\Model\Validator\Uniqueness;
 	use Phalcon\Mvc\Model\Validator\InclusionIn;
 
-	class Users extends Model
+	class Diseases extends Model
 	{
 		public function validation()
 		{
-			$this->validate(new InclusionIn(
-				array(
-					"field" => "role",
-					"domain" => array("doctor", "enfermero", "usuario")
-				)
-			));
+//			$this->validate(new InclusionIn(
+//				array(
+//					"field" => "type",
+//					"domain" => array("droid", "mechanical", "virtual")
+//				)
+//			));
 
 			$this->validate(new Uniqueness(
 				array(
-					"field" => "user",
-					"message" => "This user already exist"
+					"field" => "name",
+					"message" => "The disease name must be unique"
 				)
 			));
 
