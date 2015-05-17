@@ -29,15 +29,16 @@
 
 		//retrieves all reports
 		$app->get('/api/reports', function() use($app){
-			$phql = "SELECT * FROM Reports";
+			$phql = "SELECT Reports.id AS rep_id, Reports.place AS rep_place, Diseases.name AS dis_name FROM Reports JOIN Diseases WHERE Reports.disease_id = Diseases.id";
 			$reports = $app->modelsManager->executeQuery($phql);
 
 			$data = array();
 			foreach ($reports as $report ) {
 				# code...
 				$data[]= array(
-						'id' => $report->id,
-						'place' => $report->place,
+						'id' => $report->rep_id,
+						'place' => $report->rep_place,
+						'disease' => $report->dis_name
 					);
 			}
 			echo json_encode($data);
@@ -52,10 +53,8 @@
 			foreach ($users as $user ) {
 				# code...
 				$data[]= array(
-						'id' => $user->id,
-						'name' => $user->name,
 						'user' => $user->user,
-						'rol'=> $user->rol,
+						'password'=> $user->password
 					);
 			}
 			echo json_encode($data);
@@ -101,7 +100,7 @@
 		//searches for guidelines of one disease $name
 		$app->get('/api/guidelines/search/{name}', function($name) use($app){
 
-			$phql = "SELECT Guidelines.id AS gui_id, Guidelines.guideline AS gui_guideline, Diseases.name AS dis_name FROM Guidelines JOIN Diseases WHERE Diseases.name LIKE :name:";
+			$phql = "SELECT Guidelines.id AS gui_id, Guidelines.guideline AS gui_guideline, Diseases.name AS dis_name FROM Guidelines JOIN Diseases WHERE Guidelines.disease_id = Diseases.id AND Diseases.name LIKE :name:";
 			$guidelines = $app->modelsManager->executeQuery($phql, array(
 				'name' => '%'.$name.'%'
 			));
@@ -118,6 +117,25 @@
 			echo json_encode($data);
 		});
 
+		//retrieves users by user
+		$app->get('/api/users/search/{user}', function($user) use($app){
+
+			$phql = "SELECT * FROM Users WHERE user LIKE :user:";
+			$users = $app->modelsManager->executeQuery($phql, array(
+				'user' => '%'.$user.'%'
+			));
+
+			$data = array();
+			foreach ($users as $user ) {
+				# code...
+				$data[]= array(
+						'id' => $user->id,
+						'user' => $user->user,
+						'password' => $user->password,
+					);
+			}
+			echo json_encode($data);
+		});
 
 	//SEARCHES FIND BY KEY
 
