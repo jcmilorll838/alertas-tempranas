@@ -1,0 +1,11 @@
+class_name: ApiTester
+modules:
+    enabled: 
+           - PhpBrowser
+           - REST
+           - ApiHelper
+    config:
+       PhpBrowser:
+          url: 'http://localhost/alerts/'
+       REST:
+          url: 'http://localhost/alerts/api/'
