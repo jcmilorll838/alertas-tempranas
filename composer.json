@@ -1,0 +1,6 @@
+{
+  "require":{
+    "codeception/codeception":"*",
+    "phing/phing":"2.6.1"
+  }
+}
