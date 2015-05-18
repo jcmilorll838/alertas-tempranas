@@ -463,8 +463,8 @@
 			$status = $app->modelsManager->executeQuery($phql, array(
 				'id' => $id,
 				'name' => $patient->name,
-				'role' => $patient->role,
-				'user' => $patient->user
+				'occupation' => $patient->occupation,
+				'gender' => $patient->gender
 			));
 
 			$response = new Response();
