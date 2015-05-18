@@ -6,6 +6,6 @@ modules:
            - ApiHelper
     config:
        PhpBrowser:
-          url: 'http://localhost/alerts/'
+          url: 'http://localhost/alerts/src/'
        REST:
-          url: 'http://localhost/alerts/api/'
+          url: 'http://localhost/alerts/src/api/'
