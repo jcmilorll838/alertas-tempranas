@@ -3,9 +3,12 @@ modules:
     enabled: 
            - PhpBrowser
            - REST
+           - Phalcon1
            - ApiHelper
     config:
        PhpBrowser:
           url: 'http://localhost/alerts/src/'
        REST:
           url: 'http://localhost/alerts/src/api/'
+       Phalcon1:
+          bootstrap: 'tests/_bootstrap.php'
