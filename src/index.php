@@ -53,6 +53,7 @@
 			foreach ($users as $user ) {
 				# code...
 				$data[]= array(
+						'id' => $user->id,
 						'user' => $user->user,
 						'password'=> $user->password
 					);
@@ -280,7 +281,7 @@
 			$patient = $app->request->getJsonRawBody();
 
 			$phql = "INSERT INTO Patients (name, occupation, gender) VALUES (:name:, :occupation:, :gender:)";
-
+			
 			$status = $app->modelsManager->executeQuery($phql, array(
 					'name' => $patient->name,
 					'occupation' => $patient->occupation,
@@ -305,7 +306,7 @@
 						# code...
 					$errors[] = $message->getMessage();
 				}	
-
+				
 				$response->setJsonContent(array('status'=>'ERROR', 'messages'=> $errors));
 			}
 			return $response;
@@ -422,16 +423,15 @@
 
 	//UPDATES
 
-		//updates users based on primary key
-		$app->put('/api/users/{id:[0-9]+}', function($id) use($app) {
+		//updates users based on user
+		$app->put('/api/users/{usuario}', function($usuario) use($app) {
 			$user = $app->request->getJsonRawBody();
 
-			$phql = "UPDATE Users SET name = :name:, role = :role:, user = :user:, password = :password: WHERE id = :id:";
+			$phql = "UPDATE Users SET name = :name:, role = :role:, password = :password: WHERE user = :usuario:";
 			$status = $app->modelsManager->executeQuery($phql, array(
-				'id' => $id,
 				'name' => $user->name,
 				'role' => $user->role,
-				'user' => $user->user,
+				'usuario' => $usuario,
 				'password' => $user->password
 			));
 
@@ -439,6 +439,7 @@
 
 			if($status->success() == true){
 				$response->setJsonContent(array('status' => 'OK'));
+				$response->setStatusCode(204,"Updated");
 			} else {
 
 				$response->setStatusCode(409, "Conflict");
@@ -522,10 +523,10 @@
 		$app->put('/api/guidelines/{id:[0-9]+}', function($id) use($app) {
 			$guideline = $app->request->getJsonRawBody();
 
-			$phql = "UPDATE Guidelines SET name = :name:, disease_id = :disease_id: WHERE id = :id:";
+			$phql = "UPDATE Guidelines SET guideline = :guideline:, disease_id = :disease_id: WHERE id = :id:";
 			$status = $app->modelsManager->executeQuery($phql, array(
 				'id' => $id,
-				'name' => $guideline->name,
+				'guideline' => $guideline->guideline,
 				'disease_id' => $guideline->disease_id
 			));
 
@@ -552,17 +553,18 @@
 
 	//DELETES
 
-		//deletes users based on primary key
-		$app->delete('/api/users/{id:[0-9]+}', function($id) use($app){
-			$phql = "DELETE FROM Users WHERE id = :id:";
+		//deletes users based on user (usuario, cedula)
+		$app->delete('/api/users/{usuario}', function($usuario) use($app){
+			$phql = "DELETE FROM Users WHERE user = :usuario:";
 			$status = $app->modelsManager->executeQuery($phql, array(
-				'id' => $id
+				'usuario' => $usuario
 			));
 
 			$response = new Response();
 
 			if($status->success() == true){
 				$response->setJsonContent(array('status'=> 'OK'));
+				$response->setStatusCode(202, "Deleted");
 			} else {
 
 				$response->setStatusCode(409, "Conflict");

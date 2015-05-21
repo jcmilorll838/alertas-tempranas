@@ -11,7 +11,7 @@
 			$this->validate(new InclusionIn(
 				array(
 					"field" => "gender",
-					"domain" => array("F", "M")
+					"domain" => array("Femenino", "Masculino")
 				)
 			));
 
@@ -21,10 +21,7 @@
 					"message" => "This name already exist in our db"
 				)
 			));
-
-//			if($this->date < 0) {
-//				$this->appendMessage(new Message("The date cannot be less than zero"));
-//			}	
+	
 
 			if($this->validationHasFailed() == true){
 				return false;

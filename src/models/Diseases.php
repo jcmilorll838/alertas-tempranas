@@ -8,12 +8,14 @@
 	{
 		public function validation()
 		{
-//			$this->validate(new InclusionIn(
-//				array(
-//					"field" => "type",
-//					"domain" => array("droid", "mechanical", "virtual")
-//				)
-//			));
+
+
+			$this->validate(new Uniqueness(
+				array(
+					"field" => "cod",
+					"message" => "Other disease use this cod"
+				)
+			));
 
 			$this->validate(new Uniqueness(
 				array(
@@ -22,9 +24,6 @@
 				)
 			));
 
-//			if($this->date < 0) {
-//				$this->appendMessage(new Message("The date cannot be less than zero"));
-//			}	
 
 			if($this->validationHasFailed() == true){
 				return false;

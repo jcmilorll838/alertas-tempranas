@@ -8,12 +8,6 @@
 	{
 		public function validation()
 		{
-			$this->validate(new InclusionIn(
-				array(
-					"field" => "role",
-					"domain" => array("doctor", "enfermero", "usuario")
-				)
-			));
 
 			$this->validate(new Uniqueness(
 				array(

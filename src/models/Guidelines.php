@@ -9,12 +9,12 @@
 		public function validation()
 		{
 
-//			$this->validate(new Uniqueness(
-//				array(
-//					"field" => "user",
-//					"message" => "This user already exist"
-//				)
-//			));
+			$this->validate(new Uniqueness(
+				array(
+					"field" => "id",
+					"message" => "id must be unique"
+				)
+			));
 
 			if($this->validationHasFailed() == true){
 				return false;
